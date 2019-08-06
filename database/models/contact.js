@@ -1,4 +1,6 @@
 'use strict';
+const defaultAttributes = ['id', 'name', 'email', 'phoneNumber']
+
 module.exports = (sequelize, DataTypes) => {
   const Contact = sequelize.define('Contact', {
     name: {
@@ -14,10 +16,19 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     phoneNumber: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
-  }, {});
+  }, {
+    defaultScope: {
+      attributes: defaultAttributes
+    },
+    scopes: {
+      withPassword: {
+        attributes: [...defaultAttributes, 'password']
+      }
+    }
+  });
   Contact.associate = function(models) {
     // associations can be defined here
   };

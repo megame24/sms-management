@@ -1,7 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const routes = require('./routes');
-const { createAdmin } = require('./helpers/usersHelper');
 
 const app = express();
 
@@ -23,8 +22,6 @@ app.use(routes);
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Welcome to SMS Management API' });
 });
-
-createAdmin();
 
 if (process.env.NODE_ENV !== 'test') {
   app.listen(port, () => {

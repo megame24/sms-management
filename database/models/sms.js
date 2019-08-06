@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   Sms.associate = function(models) {
-    Sms.belongsTo(models.Contacts, {
+    Sms.belongsTo(models.Contact, {
       as: 'to',
       foreignKey: 'toId'
     });
-    Sms.belongsTo(models.Contacts, {
+    Sms.belongsTo(models.Contact, {
       as: 'from',
       foreignKey: 'fromId'
     });
