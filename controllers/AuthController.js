@@ -23,8 +23,9 @@ AuthController.register = async (req, res, next) => {
   hash.update(password);
   password = hash.digest('hex');
   try {
-    await Contact.create({ name, email, password, phoneNumber });
-    const contact = await Contact.findOne({ where: { email } });
+    const contact = await Contact
+      .create({ name, email, password, phoneNumber }, { returning: true });
+    delete contact.dataValues.password;
     const tokenPayload = {
       id: contact.id
     };

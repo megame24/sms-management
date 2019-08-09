@@ -16,8 +16,8 @@ module.exports = {
       },
       toId: {
         type: Sequelize.INTEGER,
-        onDelete: 'CASCADE',
-        onUpdate: 'SET NULL',
+        onDelete: 'SET NULL',
+        onUpdate: 'CASCADE',
         references: {
           model: 'Contacts',
           key: 'id',
