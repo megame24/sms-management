@@ -26,8 +26,7 @@ AuthController.register = async (req, res, next) => {
     await Contact.create({ name, email, password, phoneNumber });
     const contact = await Contact.findOne({ where: { email } });
     const tokenPayload = {
-      id: contact.id,
-      phoneNumber
+      id: contact.id
     };
     const token = tokenService.generateToken(tokenPayload);
     res.status(201).json({
@@ -61,8 +60,7 @@ AuthController.login = async (req, res, next) => {
     }
     delete contact.dataValues.password;
     const tokenPayload = {
-      id: contact.id,
-      phoneNumber: contact.phoneNumber
+      id: contact.id
     };
     const token = tokenService.generateToken(tokenPayload);
     res.status(201).json({
