@@ -1,4 +1,6 @@
 const { Contact } = require('../../database/models');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 /* eslint-disable max-len */
 /* eslint-disable no-useless-escape */
@@ -36,8 +38,13 @@ AuthValidator.prototype.validateReg = async (req, res, next) => {
     if (!phoneNumber) throwError('Phone number is required', 400);
     if (!email) throwError('The email field is required', 400);
     if (!emailRegEx.test(email)) throwError('Invalid email', 400);
-    const user = await Contact.findOne({ where: { email } });
-    if (user) throwError('This email already exists', 400);
+    const user = await Contact.findAll({
+      where: {
+        [Op.or]: [{ email }, { phoneNumber }]
+      }
+    });
+    console.log(user);
+    if (user.length) throwError('This email or phoneNumber already exists', 400);
     req.body = { ...req.body, name, email, password };
     return next();
   } catch (err) {
