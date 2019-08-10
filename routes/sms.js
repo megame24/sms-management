@@ -4,7 +4,7 @@ const SmsController = require('../controllers/SmsController');
 const authMiddleware = require('../middleware/authMiddleware');
 
 const { validateSend } = smsValidator;
-const { send } = SmsController;
+const { sendMessage, getMessages } = SmsController;
 const { authenticateContact } = authMiddleware;
 
 const router = Router();
@@ -13,7 +13,13 @@ router.post(
   '/sms',
   authenticateContact,
   validateSend,
-  send
+  sendMessage
+);
+
+router.get(
+  '/sms',
+  authenticateContact,
+  getMessages
 );
 
 module.exports = router;
