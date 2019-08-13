@@ -1,7 +1,4 @@
 const { Contact } = require('../../database/models');
-
-/* eslint-disable max-len */
-/* eslint-disable no-useless-escape */
 const { throwError } = require('../../helpers/errorHelper');
 
 /**
