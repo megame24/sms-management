@@ -6,7 +6,7 @@
     "description": "Manage contacts and their messages",
     "contact": {}
   },
-  "host": "localhost:3005",
+  "host": "in-sms-management.herokuapp.com",
   "basePath": "/api",
   "securityDefinitions": {
     "token": {
@@ -17,7 +17,7 @@
     }
   },
   "schemes": [
-    "http"
+    "https"
   ],
   "consumes": [
     "application/json"
