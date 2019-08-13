@@ -1,9 +1,7 @@
 const { Router } = require('express');
-const ContactController = require('../controllers/ContactController');
-const authMiddleware = require('../middleware/authMiddleware');
-
-const { deleteContact } = ContactController;
-const { authenticateContact } = authMiddleware;
+const { deleteContact, updateContact } = require('../controllers/ContactController');
+const { authenticateContact } = require('../middleware/authMiddleware');
+const { validateUpdate } = require('../middleware/validation/contactValidator');
 
 const router = Router();
 
@@ -11,6 +9,13 @@ router.delete(
   '/contact',
   authenticateContact,
   deleteContact
+);
+
+router.put(
+  '/contact',
+  authenticateContact,
+  validateUpdate,
+  updateContact
 );
 
 module.exports = router;

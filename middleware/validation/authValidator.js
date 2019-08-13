@@ -1,10 +1,9 @@
-const { Contact } = require('../../database/models');
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-
 /* eslint-disable max-len */
 /* eslint-disable no-useless-escape */
+const { Contact } = require('../../database/models');
+const Sequelize = require('sequelize');
 const { throwError } = require('../../helpers/errorHelper');
+const Op = Sequelize.Op;
 
 /**
  * AuthValidator constructor
@@ -27,6 +26,7 @@ AuthValidator.prototype.validateReg = async (req, res, next) => {
   name = name && name.trim() ? name.trim() : null;
   email = email && email.trim() ? email.trim() : null;
   password = password && password.trim() ? password.trim() : null;
+  phoneNumber = phoneNumber && phoneNumber.trim() ? phoneNumber.trim() : null;
   try {
     if (!name) throwError('The name field is required', 400);
     if (name.length > 50) throwError('This name is too long', 400);
@@ -38,13 +38,13 @@ AuthValidator.prototype.validateReg = async (req, res, next) => {
     if (!phoneNumber) throwError('Phone number is required', 400);
     if (!email) throwError('The email field is required', 400);
     if (!emailRegEx.test(email)) throwError('Invalid email', 400);
-    const user = await Contact.findAll({
+    const contact = await Contact.findAll({
       where: {
         [Op.or]: [{ email }, { phoneNumber }]
       }
     });
-    if (user.length) throwError('This email or phoneNumber already exists', 400);
-    req.body = { ...req.body, name, email, password };
+    if (contact.length) throwError('This email or phoneNumber already exists', 400);
+    req.body = { ...req.body, name, email, password, phoneNumber };
     return next();
   } catch (err) {
     next(err);

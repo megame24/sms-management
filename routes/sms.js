@@ -1,11 +1,7 @@
 const { Router } = require('express');
-const smsValidator = require('../middleware/validation/smsValidator.js');
-const SmsController = require('../controllers/SmsController');
-const authMiddleware = require('../middleware/authMiddleware');
-
-const { validateSend } = smsValidator;
-const { sendMessage, getMessages } = SmsController;
-const { authenticateContact } = authMiddleware;
+const { validateSend } = require('../middleware/validation/smsValidator.js');
+const { sendMessage, getMessages } = require('../controllers/SmsController');
+const { authenticateContact } = require('../middleware/authMiddleware');
 
 const router = Router();
 
