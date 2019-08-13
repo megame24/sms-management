@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
 const routes = require('./routes');
+const swaggerDocument = require('./json/swagger.json');
 
 const app = express();
 
@@ -16,6 +18,9 @@ if (!isProduction) {
 }
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use('/doc', swaggerUi.serve);
+app.get('/doc', swaggerUi.setup(swaggerDocument));
 
 app.use(routes);
 
